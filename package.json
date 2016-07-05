@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Create pie charts to visualize data",
   "main": "App.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MichaelWingate/PieCharts.git"
+  },
   "scripts": {
     "start": "npm run build && npm run dev-server",
     "build": "./node_modules/.bin/webpack",

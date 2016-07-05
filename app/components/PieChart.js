@@ -49,12 +49,10 @@ var PieSlices = React.createClass({
       .padAngle(props.padAngle)
       .value(function(d) {return d.value})
       (props.data);
-    console.log(props.data);
-    console.log(arcs);
 
     var totalSlices = arcs.length;
     var key = `translate(-20,-${((totalSlices-1)*20)/2})`;
-    if((((totalSlices)/2)*40) >= innerRadius) {
+    if((((totalSlices)/2)*30) >= innerRadius) {
       innerRadius *= .75;
       outerRadius *= .75;
       center = `translate(${props.width/3}, ${props.height/2})`;
@@ -118,12 +116,24 @@ var Slice = React.createClass({
     .cornerRadius(this.props.cornerRadius)
     .padAngle(this.props.padAngle);
 
+    var arc2 =d3.arc()
+    .startAngle(this.props.startAngle)
+    .endAngle(this.props.endAngle)
+    .innerRadius(outerRadius)
+    .outerRadius(outerRadius*1.1)
+    .cornerRadius(this.props.cornerRadius)
+    .padAngle(this.props.padAngle);
+
   var percentage = Math.round(((this.props.value) / (this.props.total))*100);
+  //var text = this.props.value + "-"+ percentage + "%";
+  var text = percentage + "%";
     return(
       <g onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
         <path fill={this.props.color} d={arc()} />
+
         <text transform={`translate(${arc.centroid()})`}
-          textAnchor="middle" fill={"white"}> {this.props.value + "-"+ percentage + "%"}</text>
+          textAnchor="middle" fill={"white"}> {text}</text>
+
           <g transform={this.props.keyTransform}>
             <g transform={`translate(0,${this.props.index*20})`}>
               <circle transform={`translate(-10,-5)`} r={7} fill={this.props.color} />

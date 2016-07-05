@@ -12,6 +12,7 @@ var PieChartApp = React.createClass({
       width: 800,
       iScale: .5,
       pAngle: 0.015,
+      cRadius: 7,
     }
   },
 
@@ -47,12 +48,14 @@ var PieChartApp = React.createClass({
     var width = Number(ReactDOM.findDOMNode(this.refs.width).value);
     var iScale = Number(ReactDOM.findDOMNode(this.refs.iScale).value);
     var pAngle = Number(ReactDOM.findDOMNode(this.refs.pAngle).value);
+    var cRadius = Number(ReactDOM.findDOMNode(this.refs.cRadius).value);
 
     this.setState({
       height: height,
       width: width,
       iScale: iScale,
       pAngle: pAngle,
+      cRadius: cRadius,
     });
   },
 
@@ -61,7 +64,8 @@ var PieChartApp = React.createClass({
       <div>
         <div className="chart">
           {this.state.data != [] ?<PieChart height={this.state.height} width={this.state.width} data={this.state.data}
-            category="job" innerScale={this.state.iScale} padAngle={this.state.pAngle} color={d3.scaleSequential(d3.interpolateRainbow)} /> : null}
+            category="job" innerScale={this.state.iScale} padAngle={this.state.pAngle} cornerRadius={this.state.cRadius}
+            color={d3.scaleSequential(d3.interpolateRainbow)} /> : null}
         </div>
         <div className="form">
           <form onSubmit={this.onSubmit}>
@@ -69,6 +73,7 @@ var PieChartApp = React.createClass({
             Width: <input type="text" ref="width" defaultValue={this.state.width} /><br/>
             Inner Scale: <input type="text" ref="iScale" defaultValue={this.state.iScale} /> <br/>
             Pad Angle: <input type="text" ref="pAngle" defaultValue={this.state.pAngle} /> <br/>
+            Corner Radius <input type="text" ref="cRadius" defaultValue={this.state.cRadius} /> <br/>
             <input type="submit" value="Submit" />
           </form>
         </div>
