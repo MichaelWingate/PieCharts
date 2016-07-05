@@ -131,8 +131,11 @@ var Slice = React.createClass({
       <g onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
         <path fill={this.props.color} d={arc()} />
 
-        <text transform={`translate(${arc.centroid()})`}
+        {this.props.percentage >= 3 ? <text transform={`translate(${arc.centroid()})`}
           textAnchor="middle" fill={"white"}> {text}</text>
+          :
+          <text transform={`translate(${arc2.centroid()})`}
+            textAnchor="middle" fill={this.props.color}> {text}</text>}
 
           <g transform={this.props.keyTransform}>
             <g transform={`translate(0,${this.props.index*20})`}>
