@@ -34,13 +34,22 @@ var PieChart = React.createClass({
     )
   }
 });
-
+function compare(a,b) {
+  if (a.arc.index < b.arc.index) {
+    return -1;
+  }
+  if (a.arc.index > b.arc.index) {
+    return 1;
+  }
+  return 0;
+};
 var PieSlices = React.createClass({
   onClick: function() {
     this.setState({innerRadius: this.state.innerRadius-10});
   },
   render: function() {
     var props = this.props;
+    var data = props.data;
     var outerRadius = Math.min(props.width,props.height)/2.55;
     var innerRadius = outerRadius * props.innerScale;
     var center = `translate(${props.width/2}, ${props.height/2})`;
@@ -49,6 +58,10 @@ var PieSlices = React.createClass({
       .padAngle(props.padAngle)
       .value(function(d) {return d.value})
       (props.data);
+
+    data.map(function(value, i) {
+      value.arc = arcs[i];
+    })
 
     var totalSlices = arcs.length;
     var key = `translate(-20,-${((totalSlices-1)*20)/2})`;
@@ -60,14 +73,14 @@ var PieSlices = React.createClass({
     }
 
     var total = 0;
-    props.data.map(function(value) {
+    data.map(function(value) {
       total += value.value;
     });
-    var slices = arcs.map(function(arc, i) {
+    var slices = data.map(function(value, i) {
       return (
-        <Slice innerRadius={innerRadius} outerRadius={outerRadius} startAngle={arc.startAngle}
-        endAngle={arc.endAngle} value={arc.value} key={i} index={i} color={props.color(i/totalSlices)}
-        total={total} category={props.data[i].key} keyTransform={key} padAngle={props.padAngle}
+        <Slice innerRadius={innerRadius} outerRadius={outerRadius} startAngle={value.arc.startAngle}
+        endAngle={value.arc.endAngle} value={value.value} key={i} renderIndex={i} arcIndex={value.arc.index} color={props.color(i/totalSlices)}
+        total={total} category={value.key} keyTransform={key} padAngle={props.padAngle}
         cornerRadius={props.cornerRadius} />
       )
     });
@@ -116,7 +129,7 @@ var Slice = React.createClass({
     .cornerRadius(this.props.cornerRadius)
     .padAngle(this.props.padAngle);
 
-    if(this.props.index % 2 == 0) {
+    if(this.props.arcIndex % 2 == 0) {
       var labelRadius = outerRadius + 15;
     }
     else {
@@ -149,7 +162,7 @@ var Slice = React.createClass({
             textAnchor="middle" fill={this.props.color}> {text}</text>}
 
           <g transform={this.props.keyTransform}>
-            <g transform={`translate(0,${this.props.index*20})`}>
+            <g transform={`translate(0,${this.props.renderIndex*20})`}>
               <circle transform={`translate(-10,-5)`} r={7} fill={this.props.color} />
               <text fill={this.props.color} style={style}>{this.props.category} </text>
             </g>
