@@ -7,7 +7,7 @@ var PieChart = React.createClass({
     width: React.PropTypes.number.isRequired,
     height: React.PropTypes.number.isRequired,
     category: React.PropTypes.string.isRequired,
-    color: React.PropTypes.oneOf([React.PropTypes.func,React.PropTypes.array]),
+    color: React.PropTypes.func,
     innerScale: React.PropTypes.number,
     padAngle: React.PropTypes.number,
     cornerRadius: React.PropTypes.number,
