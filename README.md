@@ -21,7 +21,7 @@ git clone https://github.com/MichaelWingate/PieCharts.git
 Move into the created folder:
 
 `
-cd CancerResearchApplication
+cd PieCharts
 `
 
 Install dependencies:
