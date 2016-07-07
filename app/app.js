@@ -65,7 +65,7 @@ var PieChartApp = React.createClass({
         <div className="chart">
           {this.state.data != [] ?<PieChart height={this.state.height} width={this.state.width} data={this.state.data}
             category="job" innerScale={this.state.iScale} padAngle={this.state.pAngle} cornerRadius={this.state.cRadius}
-            color={d3.scaleSequential(d3.interpolateRainbow)} /> : null}
+            color={["#ff57ef","#ec8800", "#9826b6", "#4d48e3"]} /> : null}
         </div>
         <div className="form">
           <form onSubmit={this.onSubmit}>
